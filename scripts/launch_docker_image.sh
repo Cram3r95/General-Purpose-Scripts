@@ -22,9 +22,7 @@
         # Open new host tab -> docker commit my_container my_image
 
         # Now you can use your new user (with its corresponding home directory)
-
-# Function to create a new container and run multiple tabs
-
+	
 create_new_container()
 {
 	# Kill previous container
@@ -72,15 +70,13 @@ restart_container()
 	fi
 }
 
-# 1. Set named volumes
+# 1. Set named volumes (Add your corresponding named volumes in this section)
 
 if [[ $3 != "root" ]]; # Non-root user
 then
-	shared=$HOME/shared_home:/home/$3/shared_home
-	linkedin_courses=$HOME/Desktop/LinkedIn_Courses:/home/$3/LinkedIn_Courses
+    shared=$HOME/shared_home:/home/$3/shared_home
 else                   # Root user
-	shared=$HOME/shared_home:/$3/shared_home
-    linkedin_courses=$HOME/Desktop/LinkedIn_Courses:/$3/LinkedIn_Courses
+    shared=$HOME/shared_home:/$3/shared_home
 fi
 
 # 2. Check status of the container
@@ -101,7 +97,7 @@ then
 
 	# 3.1. Create new container 
 
-	create_new_container
+	create_new_container $1 $2 $3 $4
 else
 	# 3.2. Check if your container is stopped or it is currently running
 
@@ -125,6 +121,13 @@ else
 			echo "Create a new container"
 			create_new_container $1 $2 $3 $4
 		fi
+		
+		# TODO #
+
+		# Check the number of tabs of the container. If it is running, but the number of tabs is lower than the specified
+		# number in the CLI (Command Line Interface), create the remaining number of tabs
+
+		# Function to create a new container and run multiple tabs
 	fi
 fi
 
